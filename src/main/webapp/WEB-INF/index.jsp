@@ -128,9 +128,9 @@
                         <option value="5+">5+</option>
                     </select>
                         <h5 class="text-danger ml-3 mr-2 my-1">Price Range</h5>
-                    <input type="number" name="range1" placeholder="From">
+                    <input type="number" name="range1" value="0" placeholder="From">
                         <h5 class="text-danger ml-3 mr-2 my-1">To</h5> 
-                        <input type="number" name="range2" placeholder="To">
+                        <input type="number"  value="0" name="range2" placeholder="To">
                     </div>
 					<p class="text-danger">Extremely precise research</p>
 				</form>

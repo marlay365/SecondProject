@@ -6,7 +6,7 @@ import com.java.dto.HomeDetails;
 import com.java.dto.PropertyOwner;
 
 public interface PropertyService {
-	public int registerProperty(HomeDetails houseDet);
+	public HomeDetails registerProperty(HomeDetails houseDet);
 	public List<HomeDetails> getPropertyDetails(String city, String propType, String availability, String bedrooms,
 	Double range1, Double range2);
 	//public HomeDetails getPropertyDetailsbyId(int id);

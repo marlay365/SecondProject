@@ -41,10 +41,10 @@ public class SavePropertiesController {
 		PropertyOwner loginOwner = (PropertyOwner) session.getAttribute("owner");
 		propDetails.setDatePosted(date);
 		propDetails.setOwner(loginOwner);
-		service.saveElasticDetails(propDetails);
-		int id = newProp.registerProperty(propDetails);
-		if(id == 1)
-			return "welcome";
+		HomeDetails details = newProp.registerProperty(propDetails);
+		service.saveElasticDetails(details);
+		if(details != null)
+			return "saved";
 		
 		return "welcome";
 	}

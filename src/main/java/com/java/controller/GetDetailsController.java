@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.java.dto.HomeDetails;
 import com.java.dto.PropertyOwner;
 import com.java.service.ElasticSearchService;
+import com.java.service.InputService;
 import com.java.service.PropertyService;
 
 //import com.java.service.UserService;
@@ -76,17 +78,18 @@ public class GetDetailsController {
 //	}
 	
 	@GetMapping("/search.do")
-	public String getData(HttpServletRequest req, @RequestParam String city, @RequestParam String propType){
+	public String getData(HttpServletRequest req, @ModelAttribute InputService inpserv){
 		
-		String availability = req.getParameter("availability");
-		String bedrooms = req.getParameter("bedrooms");
-		String range1 = req.getParameter("range1");
-		String range2 = req.getParameter("range2");
+//		String availability = req.getParameter("availability");
+//		String bedrooms = req.getParameter("bedrooms");
+//		String range1 = req.getParameter("range1");
+//		String range2 = req.getParameter("range2");
 		
 		//List<HomeDetails> list = elservice.getPropertiesByCityAndPropertyType(city, propType);
-		List<HomeDetails> list = elservice.multimatchquery(city);
-		if(list == null) {
-			String noResult = "Sorry, no results found.";
+		List<HomeDetails> list = elservice.multimatchquery(inpserv);
+		
+		if(list.size() == 0) {
+			String noResult = "Sorry, no results found. <br><br><br><br><br>";
 			req.setAttribute("noResult", noResult);
 			return "display";
 			//return "forward:search.jsp";

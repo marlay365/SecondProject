@@ -30,7 +30,12 @@
 
 	<!-- Main Stylesheets -->
 	<link rel="stylesheet" href="css/style.css"/>
-
+	
+	<style>
+		em{
+			background-color: yellow;
+		}
+	</style>
 </head>
 <body>
 
@@ -63,7 +68,7 @@
 			</ul>
 			<div class="header-right">
 				<div class="user-panel">
-					<button type="button" class="btn btn-primary" >
+					<button type="button" class="btn btn-primary">
 						<a href="login">Log in</a>
 					  </button>
 	
@@ -85,24 +90,34 @@
               <h2 class="text-black h1 site-section-heading">Results</h2>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-7 mb-5">
-            	<div>
-					<p>${requestScope.noResult}</p>
-					<c:forEach items="${list}" var="details">
-						<p><a href="search?id=${details.id}" target="_blank">${details.description}</a></p>
-						<p>Property Type: ${details.propertyType}</p>
-						<p>Size: ${details.squareFootage} sq.ft.</p>
-						<p>Furnished: ${details.furnished}</p>
-						<p>City: ${details.city}</p>
-						<p>Availability: ${details.availability}</p>
-						<p>Price: $ ${details.price}</p><br>
-					</c:forEach>
-				</div>
-            </div>
-          </div>
-         </div>
-      </section>
+		   <div class="container">
+		    <div class="row">
+		      <div class="col-12">
+		      <h4>${requestScope.noResult}</h4>
+		        <c:forEach items="${list}" var="details">
+		          <table class="table table-image">
+		            <tbody>
+		              <tr>
+		                <th scope="row"></th>
+		                <td class="w-25">
+		                    <img src="https://image.shutterstock.com/image-photo/luxurious-new-construction-home-bellevue-260nw-555325381.jpg" class="img-fluid img-thumbnail" alt="House">
+		                   <!-- <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep">-->
+		                </td>
+		                  <th><a href="#" target="_blank">${details.description}</a><br>
+		                  <br>${details.city}<br><br> $ ${details.price} <br><br> For ${details.listing} 
+		                  <span style="padding-left: 40px;"> ${details.availability}</span>
+		                  <span style="padding-left: 40px;"> ${details.furnished}</span></th>
+		                  <th><br><br><br> ${details.squareFootage} sq.ft. <br><br>${details.propertyType}</th>
+		                <th><br><br><br>${details.bedrooms} B/R</th>
+		              </tr>
+		            </tbody>
+		          </table>
+		         </c:forEach>
+		      </div>
+		    </div>
+		  </div>
+		 </div>
+  </section>
 
 	  <!-- Footer Section -->
 	<footer class="footer-section">

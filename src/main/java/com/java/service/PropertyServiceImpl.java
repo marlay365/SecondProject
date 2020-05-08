@@ -17,9 +17,9 @@ public class PropertyServiceImpl implements PropertyService {
 	private HomeRepository newProperty;
 
 	@Override
-	public int registerProperty(HomeDetails houseDet) {
-		newProperty.save(houseDet);
-		return 1;
+	public HomeDetails registerProperty(HomeDetails houseDet) {
+		HomeDetails saveDetails = newProperty.save(houseDet);
+		return saveDetails;
 	}
 
 	@Override

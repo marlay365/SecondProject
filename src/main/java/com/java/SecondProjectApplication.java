@@ -40,7 +40,6 @@ public class SecondProjectApplication {
 	     return client;
 	}
 	
-
 	@Bean
 	public ElasticsearchOperations elasticsearchTemplate() throws UnknownHostException {
 	    return new ElasticsearchTemplate(client());

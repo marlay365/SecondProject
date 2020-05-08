@@ -9,4 +9,5 @@ public interface ElasticSearchService {
 	public void saveElasticDetails(HomeDetails h);
 	public List<HomeDetails> getPropertiesByCityAndPropertyType(String city, String propertyType);
 	public List<HomeDetails> multimatchquery(String input);
+	List<HomeDetails> multimatchquery(InputService s);
 }
