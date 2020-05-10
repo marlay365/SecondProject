@@ -102,12 +102,12 @@
                 
                 <h2 class="h4 text-black mb-5">Login</h2><br>
   				
-  				<div class="text-danger my-2">${requestScope.error}</div>
+  				<div class="text-danger my-2">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>
                 <div class="row form-group">
                   
                   <div class="col-md-12">
                     <label class="text-black" for="email">Email</label> 
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Please enter your email." required>
+                    <input type="email" id="email" name="username" class="form-control" placeholder="Please enter your email." required>
                   </div>
                 </div>
   

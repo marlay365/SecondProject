@@ -1,11 +1,17 @@
 package com.java.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,22 +24,16 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import com.java.dto.PropertyOwner;
 import com.java.service.UserAuthenticationService;
 
-
 @Controller
 public class LoginController{
 	
-	@Autowired
+	@Autowired 
 	UserAuthenticationService ownerlogin;
 	
-	@PostMapping("login.do")
-	public String getData(HttpServletRequest req, @ModelAttribute PropertyOwner owner) {
+	@GetMapping("/login.do")
+	public String getData(HttpServletRequest req) { //@ModelAttribute PropertyOwner owner) {
 		
-		//ModelAndView mv = new ModelAndView();
-		PropertyOwner existingOwner = ownerlogin.authenticateUser(owner);
-		if(existingOwner == null) {
-			req.setAttribute("error", "Your username and/or password is incorrect");
-			return "login";
-		}
+		PropertyOwner existingOwner = (PropertyOwner) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		HttpSession session = req.getSession();
 		session.setAttribute("owner", existingOwner);
 		return "index";
