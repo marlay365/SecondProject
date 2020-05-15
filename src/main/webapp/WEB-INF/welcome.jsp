@@ -291,6 +291,7 @@
 	            
 	            <button onsubmit="success()" type="submit" form="listp" class="btn btn-primary">List Property</button>
 	            ${requestScope.error}
+	            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	        </div>
 		</form>
             </div>

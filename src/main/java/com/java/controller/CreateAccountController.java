@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,9 +28,9 @@ public class CreateAccountController {
 	UserAuthenticationService newOwnerServ;
 	
 	@PostMapping("register.do")
+	@PreAuthorize("permitAll()")
 	public String getData(HttpServletRequest req, HttpServletResponse resp, @Valid @ModelAttribute PropertyOwner newOwner, BindingResult result, @RequestParam("pass2") String confirmPass) throws IOException {
-		ModelAndView mv = new ModelAndView();
-		//HttpSession session = req.getSession();
+		
 		if(result.hasErrors()) {
 			req.setAttribute("error", result.getAllErrors().stream().map(x-> x.getDefaultMessage()).collect(Collectors.toList()));
 			return "register";

@@ -99,7 +99,7 @@
   				<div>
 					<h4>Name: ${requestScope.profile.getFullname()}<br><br></h4>
 					<h4>Email:  ${requestScope.profile.getEmail()}<br><br></h4>
-					<h4>Password: ${requestScope.profile.getPassword()}<br><br></h4>
+					<h4>Password: your password is encrypted<br><br></h4>
 					<h4>Address: ${requestScope.profile.getAddress()}<br><br></h4>
 					<h4>Phone Number: ${requestScope.profile.getPhoneNum()}</h4>
 				</div>

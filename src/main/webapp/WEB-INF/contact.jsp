@@ -94,7 +94,7 @@
               <form action="#" class="p-5 bg-white">
                 
                 <h2 class="h4 text-black mb-5">Contact Form</h2> 
-  
+  				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="row form-group">
                   <div class="col-md-6 mb-3 mb-md-0">
                     <label class="text-black" for="fname">First Name</label>

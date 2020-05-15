@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,125 +34,28 @@ public class GetDetailsController {
 	@Autowired
 	ElasticSearchService elservice;
 	
-//	@GetMapping("/search.do")
-//	public String getData(HttpServletRequest req, @RequestParam String city, @RequestParam String propType){
-//		
-//		String availability = req.getParameter("availability");
-//		String bedrooms = req.getParameter("bedrooms");
-//		String range1 = req.getParameter("range1");
-//		String range2 = req.getParameter("range2"); 
-//		if(availability.equals("")) {
-//			availability = null;
-//		}
-//		if(bedrooms.equals("")) {
-//			bedrooms = null;
-//		}
-//		if(range1.equals("") || range2.equals("")) {
-//			range1 = null;
-//			range2 = null;
-//			List<HomeDetails> list = service.getPropertyDetails(city, propType, availability, bedrooms, range1, range2);
-//			if(list == null) {
-//				String noResult = "Sorry, no results found.";
-//				req.setAttribute("noResult", noResult);
-//				return "display";
-//				//return "forward:search.jsp";
-//			}
-//			req.setAttribute("list", list);
-//			return "display";
-//		}
-//		else {
-//			Double r1 = Double.parseDouble(range1);
-//			Double r2 = Double.parseDouble(range2);
-//			List<HomeDetails> list = service.getPropertyDetails(city, propType, availability, bedrooms, r1, r2);
-//			if(list == null) {
-//				String noResult = "Sorry, no results found.";
-//				req.setAttribute("noResult", noResult);
-//				return "display";
-//				//return "forward:search.jsp";
-//			}
-//			req.setAttribute("list", list);
-//			return "display";
-//		}
-//		
-//		
-//		
-//				//return "forward:search.jsp";
-//	}
-	
 	@GetMapping("/search.do")
+	@PreAuthorize("permitAll()")
 	public String getData(HttpServletRequest req, @ModelAttribute InputService inpserv){
 		
-//		String availability = req.getParameter("availability");
-//		String bedrooms = req.getParameter("bedrooms");
-//		String range1 = req.getParameter("range1");
-//		String range2 = req.getParameter("range2");
-		
-		//List<HomeDetails> list = elservice.getPropertiesByCityAndPropertyType(city, propType);
 		List<HomeDetails> list = elservice.multimatchquery(inpserv);
 		
 		if(list.size() == 0) {
 			String noResult = "Sorry, no results found. <br><br><br><br><br>";
 			req.setAttribute("noResult", noResult);
 			return "display";
-			//return "forward:search.jsp";
 		}
 		req.setAttribute("list", list);
 		return "display";
-//		
-//		if(availability.equals("")) {
-//			availability = null;
-//		}
-//		if(bedrooms.equals("")) {
-//			bedrooms = null;
-//		}
-//		if(range1.equals("") || range2.equals("")) {
-//			range1 = null;
-//			range2 = null;
-//			List<HomeDetails> list = service.getPropertyDetails(city, propType, availability, bedrooms, range1, range2);
-//			if(list == null) {
-//				String noResult = "Sorry, no results found.";
-//				req.setAttribute("noResult", noResult);
-//				return "display";
-//				//return "forward:search.jsp";
-//			}
-//			req.setAttribute("list", list);
-//			return "display";
-//		}
-//		else {
-//			Double r1 = Double.parseDouble(range1);
-//			Double r2 = Double.parseDouble(range2);
-//			List<HomeDetails> list = service.getPropertyDetails(city, propType, availability, bedrooms, r1, r2);
-//			if(list == null) {
-//				String noResult = "Sorry, no results found.";
-//				req.setAttribute("noResult", noResult);
-//				return "display";
-//				//return "forward:search.jsp";
-//			}
-//			req.setAttribute("list", list);
-//			return "display";
-//		}
-		
-				//return "forward:search.jsp";
 	}
 	
-//	@GetMapping("/search")
-//	public String getData(HttpServletRequest req, @RequestParam int id){
-//		
-//		System.out.println(id);
-//		HomeDetails obj = service.getPropertyDetailsbyId(id);
-//		req.setAttribute("obj", obj);
-//		return "forward:singleproperty.jsp";
-//	}
-	
 	@GetMapping("/seelist")
+	@PreAuthorize("isAuthenticated()")
 	public String getData(HttpSession session, HttpServletRequest req) {
-		PropertyOwner owner = (PropertyOwner) session.getAttribute("owner");
-		if(owner == null) {
-			return "login";
-		}
+		PropertyOwner owner = (PropertyOwner) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<HomeDetails> list = service.getMyProperties(owner.getId());
-		if(list == null) {
-			String noResult = "Sorry, no results found.";
+		if(list.size() == 0) {
+			String noResult = "Sorry, no results found. <br><br><br><br><br>";
 			req.setAttribute("noResult", noResult);
 			return "myproperties";
 		}

@@ -9,14 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @DynamicUpdate
 public class PropertyOwner implements UserDetails{
-
+	
 	@Id 
 	@GeneratedValue
 	@Column(name = "id")
@@ -49,7 +52,6 @@ public class PropertyOwner implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return Collections.singleton(new SimpleGrantedAuthority("USER"));
 	}
 	@Override

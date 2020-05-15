@@ -1,6 +1,5 @@
 package com.java.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +10,9 @@ import com.java.dto.PropertyOwner;
 //import com.java.exception.UsernameNotFound;
 
 @Repository
-public interface PropertyOwnerRepository extends JpaRepository<PropertyOwner, Integer>{
+public interface PropertyOwnerRepository extends CrudRepository<PropertyOwner, Integer>{
 	
 	public PropertyOwner findByEmail(String email);
 	public PropertyOwner findByEmailAndPassword(String email, String password); //throws PasswordMismatch, UsernameNotFound, DatabaseException;
 	public PropertyOwner findById(int id);
-	
 }

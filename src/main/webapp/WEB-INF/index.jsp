@@ -32,7 +32,7 @@
 
 	<!-- Main Stylesheets -->
 	<link rel="stylesheet" href="css/style.css"/>
-
+	<script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<!-- Page Preloder -->
@@ -85,6 +85,7 @@
 
 			<div class="hero-warp" >
 				<form class="main-search-form" action="search.do" id="myform">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="search-type" >
 						<div class="st-item">
 							<input type="radio" value="Apartment" name="propType" id="buy" checked>
@@ -108,7 +109,7 @@
 						</div>                                                           
 					</div>
 					<div class="search-input">
-						<input type="text" name="city" placeholder="Search by City" required>
+						<input type="text" name="city" id="myinput" onkeypress="elastic()" placeholder="Search by City / Project Name" required>
                         <button type="submit" form="myform" class="site-btn ">Search</button>
 					</div>
 					<div class="form-group row">
@@ -232,7 +233,36 @@
 	<!-- Footer Section end -->
 	
 	<!--====== Javascripts & Jquery ======-->
-	<script src="js/jquery-3.2.1.min.js"></script>
+	   <script type=text/javascript>
+	        function elastic(){
+	           
+	            var x = document.getElementById("myinput").value
+	            console.log(x)
+	            
+	            fetch(`http://localhost:9200/propertydetails/_search?q=(city:${x})`)
+	            .then(res => res.json())
+	            .then(data => {
+	              
+	                var xy = data.hits.hits.map(i => i._source.city)
+	                
+	                fetch(`http://localhost:9200/propertydetails/_search?q=(description:${x})`)
+	                .then(res => res.json())
+	                .then(data => {
+	                    var xz = data.hits.hits.map(i => i._source.description)
+	                    var xyz = xy.concat(xz);
+	                    xyz.sort()
+	//                    xyz.forEach(function(entry) {
+	//                      console.log(entry)
+	//                    })
+	                    $("#myinput").autocomplete({source: xyz})
+	                 })
+	
+	        
+	            })
+               
+    }
+    </script>
+	
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.slicknav.min.js"></script>
 	<script src="js/jquery.magnific-popup.min.js"></script>

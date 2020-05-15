@@ -5,7 +5,7 @@
 <head>
 	<title>Log In | Marc Real Estate</title>
 	<meta charset="UTF-8">
-	<meta http-equiv = "refresh" content = "2; url = index" />
+	<meta http-equiv = "refresh" content = "2; url = seelist" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -96,7 +96,7 @@
           </div>
           <div class="row">
             <div class="col-md-7 mb-5">
-              <h2 class="h4 text-black mb-5">Redirecting you to...</h2><br>
+              <h2 class="h4 text-black mb-50">Redirecting you to...</h2><br>
             </div>
               
             </div>
@@ -104,7 +104,7 @@
       </section>
 
 
-
+	<br><br><br><br>
 	<div id="dropDownSelect1"></div>
 		<!-- Footer Section -->
 		<footer class="footer-section">

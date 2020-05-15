@@ -1,6 +1,5 @@
 package com.java.dto;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -40,6 +38,7 @@ public class HomeDetails {
 	@NotEmpty(message = "Please enter a address")
 	String address;
 	@NotEmpty(message = "Please enter a city")
+	@Field(type = FieldType.Text, analyzer="customanalyzer", searchAnalyzer="searchanalyzer")
 	String city;
 	String state;
 	@NotEmpty(message = "Please enter a valid zipcode")
@@ -59,6 +58,7 @@ public class HomeDetails {
 	@OrderColumn
 	List<String> amenities;
 	@NotEmpty(message = "Please enter a description for property")
+	@Field(type = FieldType.Text, analyzer="customanalyzer", searchAnalyzer="searchanalyzer")
 	String description;
 	@ManyToOne
 	@Field(type = FieldType.Nested, includeInParent = true)

@@ -34,7 +34,7 @@
 				   <input type="radio" id="radio2" name="gender" value="Female">
 				   <label for="radio2">Female</label><br><br>
 		Describe yourself <br> <textarea name="description" rows="6" cols="50"></textarea><br><br>
-		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Save Details"> ${info}
 				
 	</form>

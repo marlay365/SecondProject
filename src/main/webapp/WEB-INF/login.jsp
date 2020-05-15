@@ -99,7 +99,7 @@
   
               
               <form action="login.do" method="post" class="p-5 bg-white">
-                
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <h2 class="h4 text-black mb-5">Login</h2><br>
   				
   				<div class="text-danger my-2">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>

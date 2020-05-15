@@ -88,7 +88,7 @@
           <div class="row">
             <div class="col-md-7 mb-5">
             	<div>
-					<p>${noResult}</p>
+					<p>${requestScope.noResult}</p>
 					<c:forEach items="${list}" var="details">
 						<p><a href="search?id=${details.id}" target="_blank">${details.description}</a></p>
 						<p>Property Type: ${details.propertyType}</p>

@@ -96,7 +96,7 @@
   
               
               <form action="register.do" method="post" class="p-5 bg-white">
-                
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <h2 class="h4 text-black mb-5">Register</h2>
                     
                 <div class="row form-group">
@@ -108,6 +108,7 @@
                   <div class="col-md-12">
                     <label class="text-black" for="fullname">Fullname</label> 
                     <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Please enter your fullname">
+                  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                   </div>
                 </div>
                   
