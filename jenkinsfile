@@ -8,9 +8,12 @@ pipeline {
 	  
    }
      parameters {
-        string(name: 'Recipient List', defaultValue: 'payal@rjtcompuquest.com', description: 'Who should I send build status?')
+        string(name: 'ProjectKey', defaultValue: 'payalbnsl_ShoppingApp')
 
-      }
+        string(name: 'organization', defaultValue: 'payalbnsl-github', description: 'Enter some oraganization for sonar')
+
+      
+    }
      triggers {
        pollSCM('* * * * *')
    }
@@ -22,19 +25,18 @@ pipeline {
    stages {
    
    stage('Clean'){
+   
      steps {
-         
 	sh 'mvn clean';
    }
    
    }
    stage("Github code"){
      steps {
-         
       // Get some code from a GitHub repository
    
     git 'https://github.com/marlay365/SecondProject.git'
-    }
+	}
 	}
       stage('Build') {
          steps {
@@ -58,8 +60,14 @@ pipeline {
          }
       }
 	  
-	  stage('Deploy to Prod'){
+	  stage('quality check'){
+	
+		steps{
+			sh 'mvn verify sonar:sonar -Dsonar.projectKey=${params.ProjectKey} -Dsonar.organization=${params.organization} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=879e860cbdec39587da8e729bf50dd823518dfcf'
+		}
+	}
 	  
+	  stage('Deploy to Prod'){
 		input{
 		 message "Deploy to Prod?"
 		  ok "Yes, we should."
