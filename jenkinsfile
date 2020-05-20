@@ -7,6 +7,10 @@ pipeline {
 	  jdk "java"
 	  
    }
+     parameters {
+        string(name: 'Recipient List', defaultValue: 'payal@rjtcompuquest.com', description: 'Who should I send build status?')
+
+      }
      triggers {
        pollSCM('* * * * *')
    }
@@ -49,5 +53,17 @@ pipeline {
             }
          }
       }
+	  
+	  stage('Deploy to Prod'){
+		input{
+		 message "Deploy to Prod?"
+		  ok "Yes, we should."
+               
+		}
+		steps{
+			echo "deploying to prod"
+		}
+	  
+	  }
    }
 }
