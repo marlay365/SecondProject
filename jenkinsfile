@@ -9,15 +9,16 @@ pipeline {
    stages {
    
    stage('Clean'){
-   
+     steps {
 	sh 'mvn clean';
-   
+   }
    
    }
    stage("Github code"){
       // Get some code from a GitHub repository
-   
+     steps {
     git 'https://github.com/marlay365/SecondProject.git'
+    }
 	}
       stage('Build') {
          steps {
