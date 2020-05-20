@@ -12,7 +12,7 @@ pipeline {
 
         string(name: 'organization', defaultValue: 'payalbnsl-github', description: 'Enter some oraganization for sonar')
 
-      
+      boolean(name: 'qualityControlEnabled', defaultValue='false')
     }
      triggers {
        pollSCM('* * * * *')
@@ -61,7 +61,8 @@ pipeline {
       }
 	  
 	  stage('quality check'){
-	
+	when{  expression { params.qualityControlEnabled }
+	}
 		steps{
 			sh 'mvn verify sonar:sonar -Dsonar.projectKey=${params.ProjectKey} -Dsonar.organization=${params.organization} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ac6b37b25715be9eb416af27e8badf7f066c3602'
 		}
