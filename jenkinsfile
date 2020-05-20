@@ -22,15 +22,19 @@ pipeline {
    stages {
    
    stage('Clean'){
-   
+     steps {
+         
 	sh 'mvn clean';
-   
+   }
    
    }
    stage("Github code"){
+     steps {
+         
       // Get some code from a GitHub repository
    
     git 'https://github.com/marlay365/SecondProject.git'
+    }
 	}
       stage('Build') {
          steps {
@@ -55,6 +59,7 @@ pipeline {
       }
 	  
 	  stage('Deploy to Prod'){
+	  
 		input{
 		 message "Deploy to Prod?"
 		  ok "Yes, we should."
