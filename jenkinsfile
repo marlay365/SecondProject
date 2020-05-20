@@ -8,7 +8,7 @@ pipeline {
 	  
    }
      parameters {
-        string(name: 'ProjectKey', defaultValue: 'payalbnsl_ShoppingApp')
+        string(name: 'ProjectKey', defaultValue: 'jahanvibansal_SecondProject')
 
         string(name: 'organization', defaultValue: 'payalbnsl-github', description: 'Enter some oraganization for sonar')
 
@@ -63,7 +63,7 @@ pipeline {
 	  stage('quality check'){
 	
 		steps{
-			sh 'mvn verify sonar:sonar -Dsonar.projectKey=${params.ProjectKey} -Dsonar.organization=${params.organization} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=879e860cbdec39587da8e729bf50dd823518dfcf'
+			sh 'mvn verify sonar:sonar -Dsonar.projectKey=${params.ProjectKey} -Dsonar.organization=${params.organization} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ac6b37b25715be9eb416af27e8badf7f066c3602'
 		}
 	}
 	  
