@@ -4,22 +4,29 @@ pipeline {
    tools {
       // Install the Maven version configured as "maven" and add it to the path.
       maven "maven"
-      jdk "java"
+	  jdk "java"
+	  
    }
+     triggers {
+       pollSCM('* * * * *')
+   }
+
+     options { 
+         buildDiscarder(logRotator(numToKeepStr: '2')) 
+    }
 
    stages {
    
    stage('Clean'){
-     steps {
+   
 	sh 'mvn clean';
-   }
+   
    
    }
    stage("Github code"){
       // Get some code from a GitHub repository
-     steps {
+   
     git 'https://github.com/marlay365/SecondProject.git'
-    }
 	}
       stage('Build') {
          steps {
